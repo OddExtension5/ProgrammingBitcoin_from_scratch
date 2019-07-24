@@ -88,3 +88,20 @@ class Point:
         # If the two points are equal and the y coordinate is 0, we return the point at infinity.
         if self == other and self.y == 0 * self.x:
             return type(self)(None, None, self.a, self.b)
+
+    # __rmul__ is used to override the front multiplication
+    # Binary Expansion that allow us to perform multiplication in log2(n) loops
+    # Scalar Multiplication for Elliptic Curves
+    # Performing scalar multiplication is straightforward, but doing the opposite point division is not
+    # This is called the discrete log problem and is the basis of elliptic curve cryptography
+    def __rmul__(self, coefficient):
+        coef = coefficient
+        current = self
+        res = type(self)(None, None, self.a, self.b)
+
+        while coef:
+            if coef & 1:
+                res += current
+            current += current
+            coef >>= 1
+        return res
