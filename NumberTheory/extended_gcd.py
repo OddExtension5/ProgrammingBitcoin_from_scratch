@@ -2,6 +2,14 @@
 
 
 def extended_gcd(a, b):
+    """
+    >>> extended_gcd(10, 6)
+    (2, -1, 2)
+
+    >>> extended_gcd(7, 5)
+    (1, -2, 3)
+
+    """
     assert a >= 0 and b >= 0
 
     if b == 0:
@@ -17,11 +25,29 @@ def extended_gcd(a, b):
     return (d, x, y)
 
 
+
 # Other form - When you want only output x and y not d = gcd(a,b)
 
-def ExtendedEuclid(a, b):
+# Extended Euclid
+def extended_euclid(a, b):
+    """
+    >>> extended_euclid(10, 6)
+    (-1, 2)
+
+    >>> extended_euclid(7, 5)
+    (-2, 3)
+
+    """
     if b == 0:
         return (1, 0)
-    (x, y) = ExtendedEuclid(b, a % b)
+    (x, y) = extended_euclid(b, a % b)
     k = a // b
     return (y, x - k * y)
+
+
+# import testmod for testing our function
+from doctest import testmod
+
+if __name__ == '__main__':
+    testmod(name='extended_gcd', verbose=True)
+    testmod(name='extended_euclid', verbose=True)
